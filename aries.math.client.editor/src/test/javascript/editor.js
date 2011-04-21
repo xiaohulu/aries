@@ -14,10 +14,17 @@
 
 test("new aries.Editor()",
  function () {
- 	expect(1);
+ 	expect(2);
  	var editor = new aries.Editor();
- 	ok(!editor.getDocument().hasContent(), "when constructs pass none params, editor's document has not content");
- }
+ 	ok(!editor.getDocument().hasContent(), "when constructs pass none params, editor's document has not content"); 	
+ 	ok(editor.getCanvas().isReady(), "the canvas must be prepared for painting");
+ 	// 少一个画笔
+ 	var divEl = document.createElement("div");
+ 	divEl.id = "divId";
+ 	editor.renderTo("divId");
+}
 );
 
  //TODO: 需要加一个config参数
+
+// 存放math dom的地方和显示math的地方不在一起，是两个概念

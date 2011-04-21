@@ -32,22 +32,42 @@ aries.Editor = (function() {
 	 */
 	function Editor() {
 		this._document = new aries.Document();
+		this._canvas = new aries.Canvas();
 	}
 	
 	Editor.prototype = /** @lends aries.Editor.prototype */
 	{
 		/**
 		 * Get document
-		 * 
-		 * @parms a
-		 * @returns a
 		 */
 		getDocument : function() {
 			/**
 			 * @author Administrator
+			 * @return {aries.Document}
 			 */
 			return this._document;
+		},
+		
+		/**
+		 * Get the canvas in which to draw the math elements
+		 * @public 
+		 * @return {aries.Canvas} 
+		 */
+		getCanvas : function()
+		{
+			return this._canvas;
+		},
+		
+		/**
+		 * @param {String} clientId the container id, in which the math is painted
+		 * @return {undefined}
+		 */
+		renderTo : function(clientId)
+		{
+			
 		}
+		
+		
 	};// end prototype
 	
 
