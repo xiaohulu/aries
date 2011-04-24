@@ -90,21 +90,3 @@ function _getAgentName() {
 	}
 	return agent;
 }
-
-/*
- * 
- * stop(); var agent = _getAgentName(); var version = $.browser.version; var
- * browser = new aries.Browser();
- * 
- * 
- * jQuery.get("data/supportbrowsers.txt", function(data) {
- * 
- * alert(data); var uas = data.split("\r\n"); expect(1); // expect better
- * test... jQuery.each(uas, function() { var parts = this.split("\t");
- * alert(parts[0]); alert(parts[1]); alert(parts[2]); if (agent == parts[0] &&
- * version == parts[1]) { if (parts[2] == "true") {
- * ok(browser.supportMathEditor(), "Browser " + parts[0] + " version " +
- * parts[1] + " should support LoveMath Editor"); } else if (parts[2] ==
- * "false") { ok(browser.supportMathEditor(), "Browser " + parts[0] + " version " +
- * parts[1] + " not support LoveMath Editor"); } } }); start(); });
- */
