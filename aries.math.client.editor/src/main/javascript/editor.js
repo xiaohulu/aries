@@ -33,6 +33,8 @@ aries.Editor = (function() {
 	function Editor() {
 		this._document = new aries.Document();
 		this._canvas = new aries.Canvas();
+		
+		this._browser = new aries.Browser();
 	}
 	
 	Editor.prototype = /** @lends aries.Editor.prototype */
@@ -58,13 +60,24 @@ aries.Editor = (function() {
 			return this._canvas;
 		},
 		
+		
 		/**
 		 * @param {String} clientId the container id, in which the math is painted
 		 * @return {undefined}
 		 */
 		renderTo : function(clientId)
 		{
-			
+			var clientDiv = document.getElementById(clientId);
+			if(this._browser.isSupport())
+			{
+				clientDiv.appendChild(this._canvas.getCanvasEl());
+			}
+			else
+			{
+				$.get("../resources/notsupport.html",function(data){
+					clientDiv.innerHTML = data;
+				});
+			}
 		}
 		
 		

@@ -7,7 +7,7 @@
  ******************************************************************************/
 
 /**
- * @fileOverview mockTest.js
+ * @fileOverview util.js
  * @author <a href="mailto:zhengwei.jin@gmail.com">Zhengwei Jin</a>
  * @version 0.0.1
  */
@@ -15,17 +15,19 @@
 /**
  * @namespace The global container for aries APIS
  */
-//var aries = aries || {};
 
-test("mock createElement()",function(){
+test("override createElement()",function(){
+var aaa = document.createElement("a");
+	var createElement = new aries.CreateElementFunction();
 	expect(2);
-	var mockDocument = new MockDocument();
-	var tags = ["div"];
-	mockDocument.disableCreateElements(tags);
-	var div = mockDocument.createElement(aries.HTML5.DIV);
-	ok(div = null, "should not create div");
+	var tagNames = ["DIV"];
+	createElement.disableCreateElements(tagNames);
+aaa = document.createElement("a");
+	var div = document.createElement(aries.HTML5.DIV);
+	ok(div == null, "should not create div");
 	
-	mockDocument.ensureCreateElements(tags);
-	div = mockDocument.createElement(aries.HTML5.DIV);
+	createElement.enableCreateElements(tagNames);
+	div = document.createElement(aries.HTML5.DIV);	
 	ok(div != null, "should create div now");
+	createElement.reset();
 });
