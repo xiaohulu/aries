@@ -17,12 +17,10 @@
  */
 
 test("override createElement()",function(){
-var aaa = document.createElement("a");
 	var createElement = new aries.CreateElementFunction();
 	expect(2);
 	var tagNames = ["DIV"];
 	createElement.disableCreateElements(tagNames);
-aaa = document.createElement("a");
 	var div = document.createElement(aries.HTML5.DIV);
 	ok(div == null, "should not create div");
 	

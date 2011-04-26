@@ -35,6 +35,8 @@ aries.Editor = (function() {
 		this._canvas = new aries.Canvas();
 		
 		this._browser = new aries.Browser();
+		this._caret = null;
+		this._readOnly = true;
 	}
 	
 	Editor.prototype = /** @lends aries.Editor.prototype */
@@ -60,6 +62,15 @@ aries.Editor = (function() {
 			return this._canvas;
 		},
 		
+		getCaret : function()
+		{
+			return this._caret;
+		},
+		
+		isReadOnly: function()
+		{
+			return this._readOnly;
+		},
 		
 		/**
 		 * @param {String} clientId the container id, in which the math is painted
@@ -70,10 +81,15 @@ aries.Editor = (function() {
 			var clientDiv = document.getElementById(clientId);
 			if(this._browser.isSupport())
 			{
-				clientDiv.appendChild(this._canvas.getCanvasEl());
+				this._readOnly = false;
+				this._caret = new aries.Caret();
+				var canvasEl = this._canvas.getCanvasEl();
+				clientDiv.appendChild(canvasEl);
+				
 			}
 			else
 			{
+				// TODO: should show indicator if asyn
 				$.get("../resources/notsupport.html",function(data){
 					clientDiv.innerHTML = data;
 				});

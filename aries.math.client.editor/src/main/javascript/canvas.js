@@ -67,9 +67,16 @@ aries.Browser = (function() {
 		},
 
 		_init : function() {
+			this._support = false;
 			var tmpCanvas = document.createElement(aries.HTML5.CANVAS);
-			var ctx = tmpCanvas.getContext("2d");
-			this._support = !!ctx && !!ctx.fillText;
+			if(tmpCanvas && tmpCanvas.getContext)
+			{
+				var ctx = tmpCanvas.getContext("2d");
+				if(ctx.fillText)
+				{
+					this._support = true;
+				}
+			}
 		}
 	};// end prototype
 

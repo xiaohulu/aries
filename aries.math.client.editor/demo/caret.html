@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="../lib/jquery/jquery-1.5.2.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	var div  = document.getElementById("divId");
+	
+	setInterval(function(){
+		var display = div.style.display;
+		if(display == "none")
+			div.style.display = "";
+		else
+			div.style.display = "none";
+	},500);
+});
+</script>
+</head>
+<body>
+
+<div id="divId" style="background-color: black;width: 1px; height: 17px;position: absolute;"></div>
+</body>
+</html>

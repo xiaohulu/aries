@@ -22,9 +22,9 @@ test("new aries.Editor()",
 					"the canvas must be prepared for painting");
 
 			var divEl = document.createElement(aries.HTML5.DIV);
+			document.body.appendChild(divEl);
 			divEl.id = "divId";
-			editor.renderTo("divId"); // ensure editor has
-			// this interface
+			editor.renderTo("divId"); // ensure editor has this interface
 		});
 
 // TODO: 需要加一个config参数
