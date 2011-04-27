@@ -1,3 +1,5 @@
 msie	9.0	true
 webkit	534.3	true
 mozilla	1.9.2.8	true
+opera	11.10	true
+webkit	533.21.1	true

@@ -63,3 +63,11 @@ aries.CreateElementFunction = (function() {
 
 	return CreateElementFunction;
 }());
+
+
+
+function bindUtil(func, o) {
+	return function() {
+		func.apply(o, arguments);
+	};
+}
