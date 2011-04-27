@@ -42,18 +42,27 @@ test("new aries.Caret()", function() {
  * caret有两个触发动作，开始和跳转，其实可以归为一个动作 分为 激活（activate）、重新定位(point at)和销毁（dispose）
  */
 test("caret activate", function() {
-	var caret = new aries.Caret();
+	var canvasEl = document.createElement(aries.HTML5.CANVAS);
+	document.body.appendChild(canvasEl);
+	var caret = new aries.Caret(canvasEl);
 	ok(caret.getEl().style.display == "none", "not show caret");
 	stop();
 	caret.activate();// should caret el show immediately
 	ok(caret.getEl().style.display == "", "show caret immediately");
 	var count = 1;
 	var show = false;
+	// 250 show 1
+	// 750 hide 3
+	// 1250 show 5
+	// 1750 hide 7
 	var intervalId = setInterval(
 			function() {
 				if (count == 5) {
 					clearInterval(intervalId);
+					caret.dispose();
+					canvasEl.parentNode.removeChild(canvasEl);
 					start();
+					return;
 				}
 				if (count % 2 == 1) {
 					show = !show;
@@ -68,16 +77,43 @@ test("caret activate", function() {
 				count++;
 			}, 250);
 });
-// 250 show 1
-// 750 hide 3
-// 1250 show 5
-// 1750 hide 7
 
 test("caret dispose", function() {
+	expect(3);
+	stop();
+	var canvasEl = document.createElement(aries.HTML5.CANVAS);
+	document.body.appendChild(canvasEl);
+	var caret = new aries.Caret(canvasEl);
+	caret.activate();
+	var tmpEl = caret.getEl();
 	caret.dispose();
-	ok(caret.getEl().style.display == "none", "dispose() should hide caret");
+	ok(caret.getEl()== null, "dispose() should dispose all resources for caret");
+	ok(tmpEl.parentNode == null,"the caret el has been removed from document.body");
+	ok(caret._show == false, "the show value should be false");
+	canvasEl.parentNode.removeChild(canvasEl);
+	start();
 });
 
 test("caret pointAt", function() {
-
+	expect(3);
+	stop();
+	
+	var canvasEl = document.createElement(aries.HTML5.CANVAS);
+	document.body.appendChild(canvasEl);
+	var caret = new aries.Caret(canvasEl);
+	caret.activate();
+	
+	// after 500ms
+	setTimeout(function(){
+		//relative  canvas
+		caret.pointAt(10,20);
+		ok(caret.getEl().style.display == "", "show caret immediately");
+		equal($(caret.getEl()).offset().left-$(caret.getCanvasEl()).offset().left,caret.getX(),"caret.getX() == 10");
+		equal($(caret.getEl()).offset().top-$(caret.getCanvasEl()).offset().top,caret.getY(),"caret.getY() == 20");
+		caret.dispose();
+		canvasEl.parentNode.removeChild(canvasEl);
+		start();
+	},500);
+	
+	
 });

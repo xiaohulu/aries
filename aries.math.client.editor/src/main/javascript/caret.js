@@ -18,15 +18,17 @@
 var aries = aries || {};
 
 /**
+ * @param {Object}
+ *            canvasEl 光标在canvasEl上显示，必输
  * @class describe the caret, this object must be page unique.
  *        这是一个在网页中全局唯一的对象，如果光标从一个editor切换到了另外一个editor，应该只是修改caret的x和y的值，
  *        而不要将之前的caret对象销毁，然后重新构建一个新的caret对象。 如果页面没有caret则构建一个新的caret对象
  *        如果页面中没有任何可以编辑的editor，则销毁caret
  */
 aries.Caret = (function() {
-	function Caret() {
-		this._x = 0;
-		this._y = 0;
+	function Caret(canvasEl) {
+		this._x = 0;// 相对canvasEl左上角的left
+		this._y = 0;// 相对canvasEl左上角的top
 		this._height = 17;
 		this._width = 1;
 		this._color = "black";
@@ -35,20 +37,30 @@ aries.Caret = (function() {
 		this._init();
 		this._show = false;
 		this._toggleId = null;
+		this._canvasEl = canvasEl;// parent
 	}
 
 	Caret.prototype = {
 		activate : function() {
-			this._toggle();// immediately
-			setInterval(bindUtil(this._toggle,this), this._interval);
+			// TODO:如果初始化时，已经有数学公式存在，则将光标放到最后。
+			this._setPosition();
+			this._immediateThenRepeat();
 		},
 
-		pointAt : function() {
+		pointAt : function(x, y) {
+			this._x = x;
+			this._y = y;
+			this._setPosition();
+			clearInterval(this._toggleId);
 
+			this._immediateThenRepeat();
 		},
 
 		dispose : function() {
-
+			clearInterval(this._toggleId);
+			this._el.parentNode.removeChild(this._el);
+			this._el = null;
+			this._canvasEl = null;
 			this._show = false;
 		},
 
@@ -85,8 +97,12 @@ aries.Caret = (function() {
 		getEl : function() {
 			return this._el;
 		},
+		getCanvasEl : function() {
+			return this._canvasEl;
+		},
 		_init : function() {
 			var tmp = document.createElement(aries.HTML5.DIV);
+			document.body.appendChild(tmp);
 			tmp.style.backgroundColor = this.getColor();
 			tmp.style.position = "absolute";
 			tmp.style.height = this.getHeight() + "px";
@@ -102,6 +118,22 @@ aries.Caret = (function() {
 			} else {
 				this._el.style.display = "none";
 			}
+		},
+		_immediateThenRepeat : function() {
+			// 1, show immediately
+			this._toggle();
+			// 2, repeat per 500ms
+			this._toggleId = setInterval(bindUtil(this._toggle, this),
+					this._interval);
+
+		},
+		_setPosition : function() {
+			var _offset = $(this._canvasEl).offset();
+			var $el = $(this._el);
+			$el.css({
+				"top" : _offset.top + this._y,
+				"left" : _offset.left + this._x
+			});
 		}
 
 	}; // end of prototype
