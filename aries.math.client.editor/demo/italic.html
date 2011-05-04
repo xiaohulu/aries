@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>draw italic text</title>
+
+</head>
+<body>
+<h1>draw italic text,like a,u,x,y in the math style</h1>
+<canvas id="canvas" style="border:solid 1px red">
+</canvas>
+<script type="text/javascript">
+
+var canvas = document.getElementById("canvas");
+var context = canvas.getContext("2d");
+
+context.font = "italic bold 20pt Times New Roman";
+context.fillText("auxyz",100,100);
+
+context.font = "normal bold 20pt Times New Roman";
+context.fillText("× ÷",50,50);
+
+</script>
+</body>
+</html>

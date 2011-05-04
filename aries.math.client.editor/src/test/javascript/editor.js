@@ -16,7 +16,7 @@ test("new aries.Editor()",
 		function() {
 			expect(2);
 			var editor = new aries.Editor();
-			ok(!editor.getDocument().hasContent(),
+			ok(!editor.getModel().hasContent(),
 					"when constructs pass none params, editor's document has not content");
 			ok(editor.getCanvas().isReady(),
 					"the canvas must be prepared for painting");
@@ -26,6 +26,8 @@ test("new aries.Editor()",
 			divEl.id = "divId";
 			editor.renderTo("divId"); // ensure editor has this interface
 		});
+
+
 
 // TODO: 需要加一个config参数
 

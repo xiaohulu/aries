@@ -31,7 +31,7 @@ aries.Editor = (function() {
 	 * @return {undefined}
 	 */
 	function Editor() {
-		this._document = new aries.Document();
+		this._model = new aries.Model();
 		this._canvas = new aries.Canvas();
 		
 		this._browser = new aries.Browser();
@@ -42,14 +42,14 @@ aries.Editor = (function() {
 	Editor.prototype = /** @lends aries.Editor.prototype */
 	{
 		/**
-		 * Get document
+		 * Get model
 		 */
-		getDocument : function() {
+		getModel : function() {
 			/**
 			 * @author Administrator
 			 * @return {aries.Document}
 			 */
-			return this._document;
+			return this._model;
 		},
 		
 		/**
