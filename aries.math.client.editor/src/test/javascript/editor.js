@@ -11,8 +11,9 @@
  * @author <a href="mailto:zhengwei.jin@gmail.com">Zhengwei Jin</a>
  * @version 0.0.1
  */
-
-test("new aries.Editor()",
+module("eidtor");
+test(
+		"new aries.Editor()",
 		function() {
 			expect(2);
 			var editor = new aries.Editor();
@@ -27,7 +28,14 @@ test("new aries.Editor()",
 			editor.renderTo("divId"); // ensure editor has this interface
 		});
 
-
+test("editor.paint()", function() {
+	var editor = new aries.Editor();
+	var model = new aries.Model();
+	editor.setModel(model);
+	model.setText("x");
+	editor.paint();
+	// 执行paint方法
+});
 
 // TODO: 需要加一个config参数
 

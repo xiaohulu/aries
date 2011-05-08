@@ -15,7 +15,7 @@
 /**
  * @namespace The global container for aries APIS
  */
-
+module("util");
 test("override createElement()",function(){
 	var createElement = new aries.CreateElementFunction();
 	expect(2);

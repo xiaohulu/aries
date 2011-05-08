@@ -11,7 +11,7 @@
  * @author <a href="mailto:zhengwei.jin@gmail.com">Zhengwei Jin</a>
  * @version 0.0.1
  */
-
+module("canvas");
 test("Browser.supportMathEditor()", testBrowserSupportMathEditor);
 
 function testBrowserSupportMathEditor() {

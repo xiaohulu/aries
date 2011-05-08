@@ -11,10 +11,11 @@
  * @author <a href="mailto:zhengwei.jin@gmail.com">Zhengwei Jin</a>
  * @version 0.0.1
  */
-
+module("caret");
 test("new aries.Caret()", function() {
 	expect(10);
-	var caret = new aries.Caret();
+	var canvas = new aries.Canvas();
+	var caret = new aries.Caret(canvas);
 	equal(caret.getX(), 0, "caret.getX() == 0");
 	equal(caret.getY(), 0, "caret.getY() == 0");
 	equal(caret.getColor(), "black", "caret.getColor() == black");
@@ -42,9 +43,9 @@ test("new aries.Caret()", function() {
  * caret有两个触发动作，开始和跳转，其实可以归为一个动作 分为 激活（activate）、重新定位(point at)和销毁（dispose）
  */
 test("caret activate", function() {
-	var canvasEl = document.createElement(aries.HTML5.CANVAS);
-	document.body.appendChild(canvasEl);
-	var caret = new aries.Caret(canvasEl);
+
+	var canvas = new aries.Canvas();
+	var caret = new aries.Caret(canvas);
 	ok(caret.getEl().style.display == "none", "not show caret");
 	stop();
 	caret.activate();// should caret el show immediately
@@ -60,7 +61,7 @@ test("caret activate", function() {
 				if (count == 5) {
 					clearInterval(intervalId);
 					caret.dispose();
-					canvasEl.parentNode.removeChild(canvasEl);
+					
 					start();
 					return;
 				}
@@ -81,26 +82,25 @@ test("caret activate", function() {
 test("caret dispose", function() {
 	expect(3);
 	stop();
-	var canvasEl = document.createElement(aries.HTML5.CANVAS);
-	document.body.appendChild(canvasEl);
-	var caret = new aries.Caret(canvasEl);
+
+	var canvas = new aries.Canvas();
+	var caret = new aries.Caret(canvas);
 	caret.activate();
 	var tmpEl = caret.getEl();
 	caret.dispose();
 	ok(caret.getEl()== null, "dispose() should dispose all resources for caret");
 	ok(tmpEl.parentNode == null,"the caret el has been removed from document.body");
 	ok(caret._show == false, "the show value should be false");
-	canvasEl.parentNode.removeChild(canvasEl);
+
 	start();
 });
 
 test("caret pointAt", function() {
 	expect(3);
 	stop();
+	var canvas = new aries.Canvas();
+	var caret = new aries.Caret(canvas);
 	
-	var canvasEl = document.createElement(aries.HTML5.CANVAS);
-	document.body.appendChild(canvasEl);
-	var caret = new aries.Caret(canvasEl);
 	caret.activate();
 	
 	// after 500ms
@@ -111,7 +111,7 @@ test("caret pointAt", function() {
 		equal($(caret.getEl()).offset().left-$(caret.getCanvasEl()).offset().left,caret.getX(),"caret.getX() == 10");
 		equal($(caret.getEl()).offset().top-$(caret.getCanvasEl()).offset().top,caret.getY(),"caret.getY() == 20");
 		caret.dispose();
-		canvasEl.parentNode.removeChild(canvasEl);
+		
 		start();
 	},500);
 	

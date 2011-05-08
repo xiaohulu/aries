@@ -21,12 +21,14 @@ aries.Canvas = (function() {
 	/**
 	 * @private
 	 */
-	function Canvas() {
+	function Canvas(borderWidth) {
 		this._ready = false;
-		this._createCanvasEl();
+		this._createCanvasEl(borderWidth);
 		// 判断是否支持在浏览器上渲染canvas
 
 		this._ready = true;
+		this._borderWidth = borderWidth?borderWidth:0;
+		this._marginLeft = 0;
 	}
 
 	Canvas.prototype = {
@@ -37,10 +39,25 @@ aries.Canvas = (function() {
 		getCanvasEl : function() {
 			return this._canvasEl;
 		},
+		getBorderWidth:function()
+		{
+			return this._borderWidth;
+		},
+		getMarginLeft:function(){
+			return this._marginLeft;
+		},
 
-		_createCanvasEl : function() {
+		_createCanvasEl : function(borderWidth) {
 			var browser = new aries.Browser();
 			this._canvasEl = document.createElement(aries.HTML5.CANVAS);
+			if(this._canvasEl)
+			{
+				if(borderWidth && borderWidth != 0)
+				{
+					this._canvasEl.style.border = borderWidth+"px solid black";
+				}
+				this._canvasEl.style.cursor = "text";
+			}
 		}
 
 	};// end prototype
