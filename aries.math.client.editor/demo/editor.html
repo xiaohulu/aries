@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>math editor demo</title>
+<script type="text/javascript" src="../lib/jquery/jquery-1.5.2.js"></script>
+<script type="text/javascript" src="../src/main/javascript/util.js"></script>
+<script type="text/javascript" src="../src/main/javascript/editor.js"></script>
+<script type="text/javascript" src="../src/main/javascript/canvas.js"></script>
+<script type="text/javascript" src="../src/main/javascript/caret.js"></script>
+<script type="text/javascript" src="../src/main/javascript/model.js"></script>
+</head>
+<body>
+<h1>math editor</h1>
+<div id="container" style="border:solid red 1px">
+</div>
+<script type="text/javascript">
+var editor = new aries.Editor(1);
+editor.renderTo("container");
+</script>
+</body>
+</html>

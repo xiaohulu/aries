@@ -119,6 +119,7 @@ aries.Editor = (function() {
 		this._borderWidth = 0;
 		
 		$(document.body).bind("mousedown", bindUtil(this._handleBodyMouseDown,this));
+		$(document.body).bind("keydown", bindUtil(this._handleBodyKeyDown,this));
 	}
 	
 	Editor.prototype = /** @lends aries.Editor.prototype */
@@ -177,6 +178,7 @@ aries.Editor = (function() {
 				this._caret = new aries.Caret(this._canvas);
 				clientDiv.appendChild(canvasEl);
 				
+				
 			}
 			else
 			{
@@ -210,6 +212,13 @@ aries.Editor = (function() {
 					// 如果位置相同，则不做处理
 				}
 			}
+		},
+		_handleBodyKeyDown:function(e)
+		{
+			// TODO：先往dom中添加字符
+			
+			// TODO：将dom中的元素重新绘制一遍
+			
 		}
 	};// end prototype
 	
