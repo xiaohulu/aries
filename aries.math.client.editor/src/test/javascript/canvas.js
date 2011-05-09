@@ -48,7 +48,7 @@ test("Editor.renderTo()", testEditorRenderTo);
 function testEditorRenderTo() {
 	
 	stop();
-	expect(7);
+	expect(5);
 	
 	var clientDiv = document.createElement(aries.HTML5.DIV);
 	//if the dom el append to the document.body, the div name must be start with the file name
@@ -63,8 +63,8 @@ function testEditorRenderTo() {
 	editor1.renderTo("canvas_divId");
 	ok(clientDiv.firstChild.tagName.toUpperCase() == aries.HTML5.CANVAS,
 			"if browser support LoveMath, should render a canvas");
-	ok(editor1.getCaret().getX() == 0, "the caret.getX() should be 0");
-	ok(editor1.getCaret().getY() == 0, "the caret.getY() should be 0");
+	//ok(editor1.getCaret().getX() == 0, "the caret.getX() should be 0");
+	//ok(editor1.getCaret().getY() == 0, "the caret.getY() should be 0");
 	ok(editor1.isReadOnly() == false,"if browser support LoveMath, the editor should be eiditable");
 			
 	clientDiv.innerHTML = "";		

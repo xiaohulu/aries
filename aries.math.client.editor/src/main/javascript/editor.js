@@ -100,9 +100,6 @@ aries.KeyBinding = (function() {
  */
 aries.Editor = (function() {
 
-
-
-
 	/**
 	 * @private
 	 * @return {undefined}
@@ -118,8 +115,12 @@ aries.Editor = (function() {
 		
 		this._borderWidth = 0;
 		
-		$(document.body).bind("mousedown", bindUtil(this._handleBodyMouseDown,this));
-		$(document.body).bind("keydown", bindUtil(this._handleBodyKeyDown,this));
+		this._actived = false;
+		
+		// 因为document.body只能表示有内容的那一部分，如果body中只有一半的内容，则浏览器下半部分就不属于body
+		// 所以换成window来表示整个浏览器窗口
+		$(window).bind("mousedown", bindUtil(this._handleBodyMouseDown,this));
+		$(window).bind("keydown", bindUtil(this._handleBodyKeyDown,this));
 	}
 	
 	Editor.prototype = /** @lends aries.Editor.prototype */
@@ -194,6 +195,7 @@ aries.Editor = (function() {
 			
 			if(e.target != this._canvas.getCanvasEl())
 			{
+				this._actived = false;
 				if(this._caret &&this._caret.isActived()==true)
 				{
 					this._caret.dispose();
@@ -203,6 +205,7 @@ aries.Editor = (function() {
 			
 			
 			// 如果光标没有显示，则激活光标
+			this._actived = true;
 			if(this._caret && this._caret.isActived()==false)
 			{
 				this._caret.activate(e.clientX,e.clientY);
@@ -224,6 +227,10 @@ aries.Editor = (function() {
 		},
 		_handleBodyKeyDown:function(e)
 		{
+			if(this._actived)
+			{
+				
+			}
 			// TODO：先往dom中添加字符
 			
 			// TODO：将dom中的元素重新绘制一遍

@@ -13,13 +13,11 @@
  */
 module("caret");
 test("new aries.Caret()", function() {
-	expect(10);
+	expect(8);
 	var canvas = new aries.Canvas();
 	var caret = new aries.Caret(canvas);
-	equal(caret.getX(), 0, "caret.getX() == 0");
-	equal(caret.getY(), 0, "caret.getY() == 0");
 	equal(caret.getColor(), "black", "caret.getColor() == black");
-	equal(caret.getWidth(), 1, "caret.getWidth() == 1");
+	equal(caret.getWidth(), 2, "caret.getWidth() == 1");
 	equal(caret.getHeight(), 17, "caret.getHeight() == 17");
 
 	var el = caret.getEl();
@@ -88,7 +86,7 @@ test("caret dispose", function() {
 	caret.activate();
 	var tmpEl = caret.getEl();
 	caret.dispose();
-	ok(caret.getEl()== null, "dispose() should dispose all resources for caret");
+	ok(caret.getEl()!= null, "dispose() should not delete caret el,just remove from document.body");
 	ok(tmpEl.parentNode == null,"the caret el has been removed from document.body");
 	ok(caret._show == false, "the show value should be false");
 
