@@ -49,7 +49,10 @@ aries.Caret = (function() {
 			//var _offset = $(this._canvasEl).offset();
 			this._x =x; //_offset.top+this._canvas.getBorderWidth()+0+this._canvas.getMarginLeft();// 相对canvasEl左上角的left
 			this._y = y;//_offset.left+this._canvas.getBorderWidth()+0+this._canvas.getMarginLeft();// 相对canvasEl左上角的top
-			
+			if(this._el.parentNode == null)
+			{
+				document.body.appendChild(this._el);
+			}
 			this._setPosition();
 			this._immediateThenRepeat();
 		},
@@ -67,8 +70,11 @@ aries.Caret = (function() {
 
 		dispose : function() {
 			clearInterval(this._toggleId);
-			this._el.parentNode.removeChild(this._el);
-			this._el = null;
+			if(this._el.parentNode)
+			{
+				this._el.parentNode.removeChild(this._el);
+			}
+			
 			this._canvasEl = null;
 			this._show = false;
 			this._actived = false;

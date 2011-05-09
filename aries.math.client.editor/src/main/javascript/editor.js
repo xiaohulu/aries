@@ -193,12 +193,18 @@ aries.Editor = (function() {
 		{
 			
 			if(e.target != this._canvas.getCanvasEl())
-			return;
+			{
+				if(this._caret &&this._caret.isActived()==true)
+				{
+					this._caret.dispose();
+				}
+				return;
+			}
+			
 			
 			// 如果光标没有显示，则激活光标
 			if(this._caret && this._caret.isActived()==false)
 			{
-				
 				this._caret.activate(e.clientX,e.clientY);
 			}
 			else
