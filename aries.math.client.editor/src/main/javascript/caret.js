@@ -32,7 +32,7 @@ aries.Caret = (function() {
 		
 		
 		this._height = 17;
-		this._width = 1;
+		this._width = 2;
 		this._color = "black";
 		this._el = null;
 		this._interval = 500;// ms
@@ -122,6 +122,7 @@ aries.Caret = (function() {
 			tmp.style.height = this.getHeight() + "px";
 			tmp.style.width = this.getWidth() + "px";
 			tmp.style.display = "none";
+			tmp.style.cursor = "text";
 			tmp.style.zIndex = 1;
 			this._el = tmp;
 			this._show = false;

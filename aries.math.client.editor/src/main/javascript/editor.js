@@ -191,11 +191,14 @@ aries.Editor = (function() {
 		
 		_handleBodyMouseDown:function(e)
 		{
+			
 			if(e.target != this._canvas.getCanvasEl())
 			return;
+			
 			// 如果光标没有显示，则激活光标
 			if(this._caret && this._caret.isActived()==false)
 			{
+				
 				this._caret.activate(e.clientX,e.clientY);
 			}
 			else
