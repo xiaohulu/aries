@@ -119,8 +119,8 @@ aries.Editor = (function() {
 		
 		// 因为document.body只能表示有内容的那一部分，如果body中只有一半的内容，则浏览器下半部分就不属于body
 		// 所以换成window来表示整个浏览器窗口
-		$(window).bind("mousedown", bindUtil(this._handleBodyMouseDown,this));
-		$(window).bind("keydown", bindUtil(this._handleBodyKeyDown,this));
+		$(window).bind("mousedown", bindUtil(this._handleWindowMouseDown,this));
+		$(window).bind("keypress", bindUtil(this._handleWindowKeyPress,this));
 	}
 	
 	Editor.prototype = /** @lends aries.Editor.prototype */
@@ -190,7 +190,13 @@ aries.Editor = (function() {
 			}
 		},
 		
-		_handleBodyMouseDown:function(e)
+		repaint:function(){
+			// 循环dom
+			// 转换各个字符为可视友好的字符
+			// 根据位置和长度绘制字符
+		},
+		
+		_handleWindowMouseDown:function(e)
 		{
 			
 			if(e.target != this._canvas.getCanvasEl())
@@ -225,16 +231,16 @@ aries.Editor = (function() {
 				}
 			}
 		},
-		_handleBodyKeyDown:function(e)
+		_handleWindowKeyPress:function(e)
 		{
-			if(this._actived)
+			if(this._actived==true)
 			{
-				
+				var content = String.fromCharCode(e.charCode);
+				//先往dom中添加字符
+				this._model.setText(content);
+				// 将dom中的元素重新绘制一遍
+				this.repaint();
 			}
-			// TODO：先往dom中添加字符
-			
-			// TODO：将dom中的元素重新绘制一遍
-			
 		}
 	};// end prototype
 	
